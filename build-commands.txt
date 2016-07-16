@@ -1,0 +1,24 @@
+sudo apt-get install mvn p7zip-full build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavresample-dev libavformat-dev libswscale-dev ant default-jre default-jdk python-dev python-numpy libdc1394-22-dev libgstreamer0.10-0 libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
+
+#Download precompiled windows binaries + source
+wget https://sourceforge.net/projects/opencvlibrary/files/opencv-win/2.4.13/opencv-2.4.13.exe
+7za x opencv-2.4.13.exe
+
+mkdir build-linux64
+cd build-linux64
+cmake ../opencv/sources -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=./install -DBUILD_PACKAGE=OFF -DBUILD_SHARED_LIBS=OFF -DBUILD_PNG=ON -DENABLE_FAST_MATH=ON -DBUILD_JPEG=ON -DBUILD_EXAMPLES=OFF -DWITH_OPENMP=OFF -DBUILD_TIFF=ON -DBUILD_TBB=ON -DWITH_OPENGL=OFF -DBUILD_WITH_DEBUG_INFO=OFF -DBUILD_DOCS=OFF -DWITH_OPENEXR=OFF -DWITH_GIGEAPI=OFF -DBUILD_JASPER=ON -DWITH_EIGEN=OFF -DBUILD_ZLIB=ON -DWITH_CUFFT=OFF -DWITH_CUDA=OFF -DBUILD_TESTS=ON -DWITH_TBB=ON -DBUILD_PERF_TESTS=OFF -DBUILD_FAT_JAVA_LIB=OFF -DBUILD_opencv_apps=OFF -DBUILD_opencv_python=OFF -DWITH_PVAPI=OFF
+make -j8
+cd ..
+
+#Install 32bit container and compile
+sudo apt-get install lxc
+sudo lxc-create -t ubuntu -n linux32 -- --bindhome $LOGNAME -a i386
+sudo lxc-start -n linux32
+apt-get install mvn p7zip-full build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavresample-dev libavformat-dev libswscale-dev ant default-jre default-jdk python-dev python-numpy libdc1394-22-dev libgstreamer0.10-0 libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
+mkdir build-linux32
+cd build-linux32
+cmake ../opencv/sources -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=./install -DBUILD_PACKAGE=OFF -DBUILD_SHARED_LIBS=OFF -DBUILD_PNG=ON -DENABLE_FAST_MATH=ON -DBUILD_JPEG=ON -DBUILD_EXAMPLES=OFF -DWITH_OPENMP=OFF -DBUILD_TIFF=ON -DBUILD_TBB=ON -DWITH_OPENGL=OFF -DBUILD_WITH_DEBUG_INFO=OFF -DBUILD_DOCS=OFF -DWITH_OPENEXR=OFF -DWITH_GIGEAPI=OFF -DBUILD_JASPER=ON -DWITH_EIGEN=OFF -DBUILD_ZLIB=ON -DWITH_CUFFT=OFF -DWITH_CUDA=OFF -DBUILD_TESTS=ON -DWITH_TBB=ON -DBUILD_PERF_TESTS=OFF -DBUILD_FAT_JAVA_LIB=OFF -DBUILD_opencv_apps=OFF -DBUILD_opencv_python=OFF -DWITH_PVAPI=OFF
+make -j8
+cd ..
+
+

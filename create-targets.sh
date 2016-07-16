@@ -6,6 +6,7 @@ echo "Version: $VERSION"
 echo "Short Version: $SHORT_VERSION"
 echo "Base Dir: $BASE_DIR"
 
+mkdir $BASE_DIR
 mkdir $BASE_DIR/target
 mkdir $BASE_DIR/target/linux
 mkdir $BASE_DIR/target/linux/x86_32
